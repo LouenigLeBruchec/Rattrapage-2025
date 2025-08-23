@@ -1,5 +1,5 @@
 import sqlite3
-from db import get_connection
+from database.db import get_connection
 
 
 #Compte
@@ -42,7 +42,7 @@ def get_comptes():
     return [dict(row) for row in rows]
 
 
-def update_compte(compte_id: int,  motDePasse: str, nom: str, prenom: str, admin: bool):
+def update_compte(compte_id: int, motDePasse: str, nom: str, prenom: str, admin: bool):
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
