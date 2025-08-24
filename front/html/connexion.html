@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Board</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Connexion</h1>
+        <button onclick="back()">Retour</button>
+    </header>
+
+    <main>
+        <h2>Se connecter</h2>
+        <form id="loginForm">
+            <label for="identifiant">Nom d'utilisateur :</label>
+            <input type="text" id="identifiant" name="identifiant" required>
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Se connecter</button>
+        </form>
+
+        <h2>Créer un compte</h2>
+        <form id="compteForm">
+            <label for="identifiant">Nom d'utilisateur :</label>
+            <input type="text" id="identifiant2" name="identifiant" required>
+
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password2" name="password" required>
+
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" required>
+
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <button type="submit">Créer le compte</button>
+        </form>
+        
+        <h2 id="errorMessage" style="color:red;"></h2>
+
+    </main>
+
+    
+
+    <script src="/js/connexion.js?v=3"></script>
+</body>
+</html>

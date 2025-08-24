@@ -32,7 +32,13 @@ async function loadJobs() {
 }
 
 function login() {
-    window.location.href = "connexion.html";
+    localStorage.setItem("idCompte", null);
+    window.location.href = "acceuil.html";
 }
 
+function back() {
+    window.location.href = "adminMenu.html";
+}
+
+document.addEventListener("DOMContentLoaded", loadCompte);
 document.addEventListener("DOMContentLoaded", loadJobs);

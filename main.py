@@ -21,8 +21,6 @@ def get_jobs():
 @app.get("/jobs/{job_id}")
 def get_job(job_id: int):
     job = crud.get_job(job_id)
-    if not job:
-        return None
     return job
 
 @app.post("/jobs")
@@ -42,14 +40,13 @@ def delete_job(job_id: int):
 
 @app.get("/comptes")
 def get_comptes():
+    print(crud.get_comptes())
     return crud.get_comptes()
 
 @app.get("/comptes/{compte_id}")
 def get_compte(compte_id: int):
-    compte = crud.get_compte(compte_id)
-    if not compte:
-        return None
-    return compte
+    comptes = crud.get_compte(compte_id)
+    return comptes
 
 @app.post("/comptes")
 def create_compte(identifiant: str, motDePasse: str, nom: str, prenom: str, admin: bool = False):
@@ -75,3 +72,24 @@ def get_me(idCompte):
         return 0
 
     return 2 if compte["admin"] else 1
+
+@app.post("/login")
+def login(identifiant: str = "", password: str = ""):
+    comptes = crud.get_comptes()
+
+    for i in range(len(comptes)):
+        if comptes[i]["identifiant"] == identifiant and comptes[i]["motDePasse"] == password:
+
+            return comptes[i]["idCompte"]
+            
+    return None
+
+@app.get("/myjob/{idCompte}")
+def get_my_job(idCompte):
+    jobs = crud.get_jobs()
+
+    for i in range(len(jobs)):
+        if jobs[i]["idCompte"] == int(idCompte):
+            return jobs[i]
+            
+    return None

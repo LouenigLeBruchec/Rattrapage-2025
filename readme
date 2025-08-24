@@ -1,0 +1,8 @@
+lancer back:
+(depuis /rattrapage-2025)
+.\back\Scripts\Activate
+uvicorn main:app --reload
+
+lancer front:
+(depuis /front)
+python -m http.server 5500 --bind 0.0.0.0
