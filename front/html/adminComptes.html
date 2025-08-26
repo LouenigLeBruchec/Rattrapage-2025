@@ -13,11 +13,35 @@
 
     <main>
         <button onclick="back()">retour</button>
+        <button onclick="createCompte()">Ajouter un compte</button>
+
+        <div class="job-card" id="createCompteCard" style="display:none;">
+            <form id="createCompteForm"">
+                <label for="identifiant">Nom d'utilisateur :</label>
+                <input type="text" id="identifiantCreate" name="identifiant" required>
+
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="passwordCreate" name="password" required>
+
+                <label for="prenom">Prénom :</label>
+                <input type="text" id="prenomCreate" name="prenom" required>
+
+                <label for="nom">Nom :</label>
+                <input type="text" id="nomCreate" name="nom" required>
+
+                <label for="admin">Admin </label>
+                <input type="checkbox" id="adminCreate" name="admin">
+
+                <button type="submit">Créer le compte</button>
+            </form>
+            <h2 id="errorMessage" style="color:red;"></h2>
+        </div>
+
         <h2>Liste des jobs</h2>
         <div id="jobList"></div>
     </main>
 
-    <script src="/js/adminComptes.js?v=2"></script>
+    <script src="/js/adminComptes.js?v=6"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>

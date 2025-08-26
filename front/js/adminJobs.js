@@ -3,9 +3,13 @@ const URL = "http://127.0.0.1:8000";
 async function loadJobs() {
     try {
         
-        const response = await fetch(`${URL}/jobs`);
+        let response = await fetch(`${URL}/jobs`);
         if (!response.ok) throw new Error("Erreur de chargement");
         const jobs = await response.json();
+
+        response = await fetch(`${URL}/comptes`);
+        if (!response.ok) throw new Error("Erreur de chargement");
+        const comptes = await response.json();
 
         const jobsList = document.getElementById("jobList");
         jobsList.innerHTML = "";
@@ -22,6 +26,13 @@ async function loadJobs() {
                 <h3>${job.poste}</h3>
                 <p>${job.description}</p>
             `;
+
+            for(let i = 0; i < comptes.length; i++) {
+                if (comptes[i].idCompte == job.idCompte) {
+                    div.innerHTML += `<h4>Employé : ${comptes[i].identifiant}</h4>`;
+                };
+            };
+                
             jobsList.appendChild(div);
         });
 
@@ -40,5 +51,4 @@ function back() {
     window.location.href = "adminMenu.html";
 }
 
-document.addEventListener("DOMContentLoaded", loadCompte);
-document.addEventListener("DOMContentLoaded", loadJobs);
+document.addEventListener("DOMContentLoaded", loadJobs());

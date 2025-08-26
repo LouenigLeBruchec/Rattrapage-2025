@@ -40,7 +40,6 @@ def delete_job(job_id: int):
 
 @app.get("/comptes")
 def get_comptes():
-    print(crud.get_comptes())
     return crud.get_comptes()
 
 @app.get("/comptes/{compte_id}")
