@@ -3,6 +3,28 @@ const URL = "http://127.0.0.1:8000";
 let jobs = null;
 let comptes = null;
 
+function getListeCompteDispo(idForm){
+    const select = document.getElementById(idForm)
+    const option = document.createElement("option");
+    option.value = null;   
+    option.textContent = "aucune";
+    select.appendChild(option);
+    comptes.forEach(compte => {
+        let ok = true;
+        for(let i = 0; i < jobs.length && ok; i++) {
+            if (jobs[i].idCompte == compte.idCompte) {
+                ok = false;
+            };
+        }
+        if (ok){
+            const option = document.createElement("option");
+            option.value = compte.idCompte;   
+            option.textContent = compte.identifiant;
+            select.appendChild(option);
+        }
+    });
+}
+
 async function deleteJob(i) {
     try {
         const response = await fetch(`${URL}/jobs/${jobs[i].idJob}?job_id=${jobs[i].idJob}`, {
@@ -58,6 +80,11 @@ async function loadJobs() {
                     <label for="description">Description :</label>
                     <textarea id="descriptionUpdate${j}" name="description" rows="4" cols="50">${jobs[j].description}</textarea>
 
+                    <label for="compte">Employé :</label>
+                    <select id="compteUpdate" name="compte" required>
+                        <option value="" disabled selected>-- Sélectionnez une personne --</option>
+                    </select>
+
                     <button type="submit">Modifier le job</button>
                 </form>
                 <h2 id="errorMessage" style="color:red;"></h2>
@@ -71,9 +98,12 @@ async function loadJobs() {
 
                 const poste = document.getElementById(`posteUpdate${j}`).value;
                 const description = document.getElementById(`descriptionUpdate${j}`).value;
+                const compte = document.getElementById("compteUpdate").value;
+
+                let requete = `${URL}/jobs/${jobs[j].idJob}?job_id=${jobs[j].idJob}&poste=${poste}&description=${description}` + (compte != "null" ? `&idCompte=${compte}` : ``);
 
                 try {
-                    const response = await fetch(`${URL}/jobs/${jobs[j].idJob}?job_id=${jobs[j].idJob}&poste=${poste}&description=${description}`, {
+                    const response = await fetch(requete, {
                         method: "PUT",
                     });
                     if (!response.ok) throw new Error("Erreur lors de la modification");
@@ -113,6 +143,7 @@ function createJob() {
         card.style.display = "none";
         return;
     } else {
+        getListeCompteDispo("compteCreate");
         card.style.display = "block";
     }
 }
@@ -123,6 +154,7 @@ function updateJob(i) {
         card.style.display = "none";
         return;
     } else {
+        getListeCompteDispo("compteUpdate");
         card.style.display = "block";
     }
 }
@@ -132,9 +164,11 @@ document.getElementById("createJobForm").addEventListener("submit", async (e) =>
 
     const poste = document.getElementById("posteCreate").value;
     const description = document.getElementById("descriptionCreate").value;
+    const compte = document.getElementById("compteCreate").value;
+    let requete = `${URL}/jobs?poste=${poste}&description=${description}` + (compte != "null" ? `&idCompte=${compte}` : ``);
 
     try {
-        const response = await fetch(`${URL}/jobs?poste=${poste}&description=${description}`, {
+        const response = await fetch(requete, {
             method: "POST",
         });
         if (!response.ok) throw new Error("Erreur lors de la création");
