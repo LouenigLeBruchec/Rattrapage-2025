@@ -68,6 +68,7 @@ async function loadJobs() {
                     <p>${jobs[i].description}</p>
                     <button onclick="selectJob(${i})">Postuler</button>
                 `;
+
                 jobsList.appendChild(div);
             };
         };
@@ -94,7 +95,7 @@ async function selectJob(jobIndex) {
             removeJob();
         }
             
-        loadJob();
+        window.location.href = "user.html";
 
     } catch (err) {
         console.error(err);
@@ -111,7 +112,7 @@ async function removeJob() {
             return;
         }
 
-        loadJob();
+        window.location.href = "user.html";
     } catch (err) {
         console.error(err);
     }

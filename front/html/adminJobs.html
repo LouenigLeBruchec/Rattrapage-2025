@@ -13,11 +13,26 @@
 
     <main>
         <button onclick="back()">retour</button>
+        <button onclick="createJob()">Ajouter un job</button>
+
+        <div class="job-card" id="createJobCard" style="display:none;">
+            <form id="createJobForm"">
+                <label for="poste">Poste :</label>
+                <input type="text" id="posteCreate" name="poste" required>
+
+                <label for="description">Description :</label>
+                <textarea id="descriptionCreate" name="description" rows="4" cols="50"></textarea>
+
+                <button type="submit">Créer le job</button>
+            </form>
+            <h2 id="errorMessage" style="color:red;"></h2>
+        </div>
+
         <h2>Liste des jobs</h2>
         <div id="jobList"></div>
     </main>
 
-    <script src="/js/adminJobs.js?v=3"></script>
+    <script src="/js/adminJobs.js?v=5"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>
